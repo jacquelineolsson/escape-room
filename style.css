@@ -47,7 +47,7 @@ h1, h2, h3, h4, h5, h6 {
 .header {
     width: 100%;
     background-color: #011827;
-    padding: 1rem 1rem 1.5rem 1rem;
+    padding: 0.8rem 1rem 1.5rem 1rem;
 }
 
 .header__container {
@@ -82,11 +82,126 @@ h1, h2, h3, h4, h5, h6 {
     display: none;
 }
 
+/* Hela skärmen */
+.mobile-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    margin: 0;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(230, 230, 235, 0); 
+    visibility: hidden;
+    pointer-events: none;
+    transition: background-color 0.5s ease, visibility 0.5s ease;
+}
+   
+.mobile-nav::before {
+    content: "";
+    position: absolute;
+    inset: 1rem; 
+    background: #011827; 
+    border: 3px solid #011627; 
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(0, 0, 0, 0.3);
+    z-index: -1;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mobile-nav::before, 
+.mobile-nav__menu, 
+.mobile-nav__close {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.mobile-menu {
+    position: absolute; 
+    top: 20px;       
+    right: 20px;       
+    background: none; 
+    border: none;      
+    cursor: pointer;   
+    z-index: 1000;    
+}
+
+.mobile-menu__icon {
+    width: 40px;       
+    height: auto;
+    display: block;
+}
+
+.mobile-nav__menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem; 
+}
+
+.mobile-nav__link {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: color 0.15s ease;
+}
+
+.mobile-nav.mobile-nav--open .mobile-nav__link:hover {
+    color: #8acfe5;
+    text-decoration: underline; 
+}
+
+.mobile-nav.mobile-nav--open:hover::before {
+    border-color: #8acfe5;   
+}
+.mobile-nav__close {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10;
+}
+
+.mobile-nav__close .mobile-nav__icon {
+    width: 24px;
+    height: auto;
+    display: block;
+}
+
+.mobile-nav.mobile-nav--open {
+    visibility: visible;
+    background-color: rgba(230, 230, 235, 0.6);
+    pointer-events: auto;
+    transition: background-color 0.2s ease; 
+}
+
+.mobile-nav.mobile-nav--open::before,
+.mobile-nav.mobile-nav--open .mobile-nav__menu,
+.mobile-nav.mobile-nav--open .mobile-nav__close {
+    opacity: 1;
+    transition: opacity 0.5s ease 0.1s;
+}
+
 @media screen and (min-width: 768px) {
     .header {
         padding: 1rem 1.5rem;
     }
     
+    .mobile-menu {
+        display: none;
+    }
+
+    .mobile-nav {
+        display: none;
+    }
+
     .header__container {
         display: flex;
         flex-direction: column;
@@ -141,6 +256,14 @@ h1, h2, h3, h4, h5, h6 {
 @media screen and (min-width: 1024px) {
     .header {
    padding: 1rem 1rem 0.8rem;
+    }
+
+    .mobile-menu {
+        display: none;
+    }
+
+    .mobile-nav {
+        display: none;
     }
 
     .header__container {
@@ -606,7 +729,7 @@ h1, h2, h3, h4, h5, h6 {
     .challenges__list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0;
     gap: 35px;
     overflow-x: visible;
@@ -615,13 +738,14 @@ h1, h2, h3, h4, h5, h6 {
 
     .challenges__container {
     padding: 0 35px; 
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
     }
 
     .challenge-card {
     flex: none;
     width: 100%;
+    min-height: 400px;
     scroll-snap-align: none;
     }
 
